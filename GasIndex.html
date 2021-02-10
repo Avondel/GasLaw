@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+	<style>
+		.underline_text {
+			border-bottom: solid 2px #000000;
+			display: inline;
+			padding-bottom: 3px;
+		}
+		
+		   .button {
+        background-color: #bbbbbb;
+        color: #000000;
+        padding: 15px;
+        border-radius: 10px;
+        margin:10px;
+		  border-style: solid;	
+		  border-color: black;
+		  text-align: center;
+		  line-height: 50px;
+		  float: center;
+    }
+    
+    .small-btn {
+        width: 50px;
+        height: 25px;
+    }
+    
+    .medium-btn {
+        width: 70px;
+        height: 30px;
+    }
+    
+    .big-btn {
+        width: 130px;
+        height: 50px;
+    }
+	 
+	 ul{
+		display: table;
+		margin 0px;
+	}
+
+  
+	</style>
+   <head>
+      <script type = "text/javascript">
+     		//start/end is for the computer top/bottom is for the user
+	
+			function myReset() { 
+				initiate();
+			}
+			
+			function myFunction() {
+				alert("Kitty");
+			}
+			
+			function initiate() {
+			
+			}
+			
+			function labelUpdate() {
+				}
+			
+			function Flip() {
+				if (flip === 0) 
+					flip = 1;	//flipped
+				else
+					flip = 0;	//not flipped
+				topUnitTemp = topUnit;
+				topNumTemp = topNum;
+				topUnit = bottomUnit;
+				topNum = bottomNum;	
+				bottomUnit = topUnitTemp;
+				bottomNum = topNumTemp;
+				document.getElementById('Factor1').innerHTML = topNum + " " + topUnit; 
+				document.getElementById('Factor2').innerHTML = bottomNum + " " + bottomUnit;
+			
+			}
+			
+			function Ex1() {
+				msg = "";
+				msg = "\bExample:\nConvert 3.2 centimeters to inches.\n\nStart: Centimeters \nEnd:  Inches";
+				alert(msg);
+			}
+
+			function Ex2() {
+				msg = "";
+				msg = "\bExample:\nConvert 3.2 centimeters to Inches.\n\nLook up the relation between centimeters and inches. \n\nCentimeters: 2.54 \nInches: 1";
+				alert(msg);
+			}
+
+			function Ex3() {
+				msg = "";
+				msg = "Calculate 3.2 cm times 1 inch divide by 2.54 cm. \n\nEnter:\n3.2 * 1 / 2.54 = ";
+				alert(msg);
+			}
+			
+			function Check() {
+				//Is everything filled in?
+				flag = 0;
+				errorMsg = "Please fill in: \n";
+
+				startUnit = document.forms["myform"]["startUnitForm"].value;
+				endUnit = document.forms["myform"]["endUnitForm"].value;
+				topNum = document.forms["myform"]["topNumForm"].value;
+				bottomNum = document.forms["myform"]["bottomNumForm"].value;
+				numberStart = document.forms["myform"]["numberStartForm"].value;
+
+				if ( startUnit === "")	{
+					flag = 1;
+					errorMsg += "Starting Units\n";
+				}
+				if ( endUnit === "")	{
+					flag = 1;
+					errorMsg += "Ending Units\n";
+				}
+				if ( topNum === "" )	{
+				alert(topNum);
+					flag = 1;
+					errorMsg += "First Conversion Number\n";
+				}
+				
+				if ( bottomNum === "")	{
+					flag = 1;
+					errorMsg += "Second Conversion Number\n";
+				}
+				if (numberStart === "")	{
+					flag = 1;
+					errorMsg += "Starting number from your problem.";
+				}
+				
+				if (flag === 1)	{
+					alert(errorMsg);
+					return;
+				}
+				
+				//Are there zeroes?
+				
+				flag = 0;
+				errorMsg = "Please replace zeros with another number in: \n";
+				
+				if (topNum === "0" ){
+					flag = 1;
+					errorMsg += "First conversion number\n";
+				}
+				if (bottomNum === "0")	{
+					flag = 1;
+					errorMsg += "Second conversion number\n";
+				}
+				if (numberStart === "0")	{
+					flag = 1;
+					errorMsg += "Number from your problem.";
+				}
+
+				if (flag === 1)	{
+					alert(errorMsg);
+					return;
+				}
+				
+				//Check for numeric entries.
+				flag = 0;
+				errorMsg = "Please use only numbers in: \n";
+				if ( isNaN(topNum )	){
+					flag = 1;
+					errorMsg += "First conversion number\n";
+				}
+				if( isNaN( bottomNum ) ){
+					flag = 1;
+					errorMsg += "Second conversion number\n";
+				}
+				if( isNaN( numberStart )) {
+					flag = 1;
+					errorMsg += "Number from your problem.";
+				}
+				
+				if (flag === 1) {
+					alert(errorMsg);
+					return;
+				}
+
+				//Is the conversion factor the right way up?
+				flag = 0;
+				if (bottomUnit !== startUnit)	{
+					flag = 1;
+					errorMsg = "Try flipping your conversion factor.";
+				}
+				
+				if (flag ===1)	{
+					alert(errorMsg);
+					return;
+				}
+				
+				if (flip ===1)	{
+					topNumTemp = topNum;
+					topNum = bottomNum;
+					bottomNum = topNumTemp;
+				}
+
+				//Calculate what we think the answer is....
+				myAnswer = numberStart * topNum / bottomNum;
+				goodMsg = "I think the answer is: " + myAnswer;
+				alert(goodMsg);
+			}
+			
+				
+			
+     </script>
+   </head>
+   
+   <body onload = "initiate()">
+	
+		<center><h1>It's a GAS!</h1></center>
+		<center>		
+		<form action = "/cgi-bin/html5.cgi" method = "get" name = "myform" >		
+		<h3> Are you dealing with....</h3>
+		<div class="button big-btn" float: left>Gas Law</div>
+		<div class="button big-btn" float: left>Change of State</div>
+		<h2>How do I tell the difference?</h2>
+		<p><b>Gas Law</b>
+				<ul>
+					<li>Uses 4 variables
+							<ul>
+								<li>(P)ressure</li>
+								<li>(T)emperature</li>
+								<li>(n)umber of MOLES</li>
+								<li>(V)olume</li>
+							</ul>
+						</li>
+					<li>Be given three of these</li>
+					<li>Asked to find the one not given</li>
+				</ul>
+				</p>
+		<p><b>Change of State</b>
+			<ul>
+				<li>Given two or three values</li>
+				<li>Given two values for one of the variables</li>
+			</ul>
+		</p>
+			<head
+		</form>
+		</center>	
+   </body>
+</html>
