@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+	<style>
+	
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+		background-color: white;
+		color: black;
+		padding: 1%;
+		font-family: Times, Verdana, sans-serif;
+		font-size: 16px;
+		margin: auto;
+	}
+	
+	h1 {
+		background-color: hsla(0,100%,100%,0.5);
+		color: #64645A;
+		padding: inherit;
+	}
+		
+	p {
+		padding: 5px;
+		margin: 0px;}
+
+	h3 {
+		margin: 0px;
+	}	 
+
+	.row {
+	  display: flex; /* equal height of the children */
+	  width: 80%;
+	  margin: auto;
+	  position: relative;
+	}
+
+	.col {
+	  flex: 1; /* additionally, equal width */
+	  padding: 1em;
+	  border: solid;
+	  position: relative;
+	}
+
+	ul{
+		display: table;
+		margin 0px;
+		width: 100%;
+		table-layout: fixed;
+	}
+
+
+	.flex-container {
+	  display: flex;
+	  background-color: DodgerBlue;
+	}
+	
+	.flex-container1 {
+		display: flex;
+	}
+.first{
+    width: 300px;
+    height: 100px;
+    margin: 10px;
+    border-width: 0 2px 0 2px;
+    border-color: #333;
+    border-style: solid;
+    position: relative;
+}
+	.flex-container  div {
+	  background-color: #f1f1f1;
+	  width: 60px;
+	  margin: 5px;
+	  text-align: center;
+	  line-height: 50px;
+	  font-size: 18px;
+	}
+
+	.flex-info {
+		color: red;
+	}
+	
+	.flex-top {
+		display: inline-flex;
+		padding: 1em;
+		min-height: 6em;
+		border: none;
+		border-bottom: solid;
+		min-width: 7em;
+		//border: solid;
+		vertical-align: middle;
+	}	
+	
+	.flex-middle {
+		display: inline-flex;
+		padding: 1.5em;
+		border: none;
+
+	}	
+	
+	.flex-element{
+		background-color: lightgreen;
+		border-style: solid;
+		padding: .25em;
+	}
+	
+	.flex-number {
+		text-align: center;
+	}
+			
+	.flex-label{
+		float: left;
+		margin-top: -2em;
+		background-color: lightgreen;
+		padding: .25em;
+		display: inline;
+	}
+
+	.flex-bottom {
+		display: inline-flex;
+		padding: 1em;
+		min-height: 6em;
+		border: none;
+		min-width: 7em;
+		//border: solid;
+		vertical-align: middle;
+	}
+
+	#div1 {
+		background-color: AliceBlue;
+	}
+
+	#div2 {
+		background-color: Cornsilk;
+	}
+
+	#div3 {
+		background-color: LavenderBlush;
+	}
+
+	#div4 {
+		background-color: HoneyDew;
+	}
+	
+	</style>
+   <head>
+		<script src = "GasLawJava.js"></script>
+   </head>
+   
+   <body onload = "initiate()">
+	
+		<center><h1>GAS LAW</h1></center>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get" name = "myform" >		
+		<div class = "row">
+			<div class = "col" id = "div1">
+			<h3>Enter Values</h3>
+			<p>For the unknown value, enter a zero or leave blank. You can only have one unknown for these problems. Maximum length for input is 10 characters.</p>
+			<p><input type="text" id = "PressureForm" maxlength = "10"/> &nbsp <select name = "PUnits">
+				<option value="kPascals">Kilo Pascals (kPa)</option>
+				<option value="Pascals">Pascals (Pa)</option>
+				<option value="atm">Atmospheres (atm)</option>
+				<option value="Torr">Torr</option>
+				<option value="pUnk">Pressure Unknown</option>
+				</select>
+			</p><p>
+			<input type="text" id = "VolumeForm" maxlength = "10"/> &nbsp <select name = "VUnits">
+				<option value="Liters">Liters (L)</option>
+				<option value="cc">Cubic Centimeters (cc)</option>
+				<option value="mL">Milliliters (mL)</option>
+				<option value="cubicmeters">Cubic meters</option>
+				<option value="vUnk">Volume Unknown</option>
+				</select>
+			</p><p>
+			<input type="text" id = "MoleForm" maxlength = "10"/> &nbsp <select name = "nUnits">
+				<option value="mol">moles</option>
+				<option value="gram">grams</option>
+				<option value="nUnk">Number of moles Unknown</option>
+				</select>
+			</p><p>
+			<input type="text" id = "TemperatureForm" maxlength = "10"/> &nbsp <select name = "TUnits">
+				<option value="kelvin">Kelvin (K)</option>
+				<option value="kelvin1">You need Kelvin.</option>
+				<option value="kelvin2">Still Kelvin. Sorry</option>
+				<option value="tUnk">Temperature Unknown</option>
+				</select>
+			</p><p>
+			<input type = "button" onclick = "HelpSolve()"; value = "Begin Solving"/>
+				
+		</div><div class = "col" id = "div2"><center>
+			<h3 style="font-size: 1.5em"><pre>P    V    =    n    R    T</pre></h3>
+		</center></div></div>	
+		<div class = "row">
+		<div class = "col" id = "div3">
+		<h3>Reference</h3>
+			<p><b>Convert from Celsius to Kelvin</b><br>
+				Subtract 273<p>
+			<p><b>Values for R</b><br>
+				8.314 J / mol * K<br>
+				8.314 m<sup>3</sup> Pa / mol * K <br>
+				0.0821 atm * L / mol * K</p>
+		
+		</div>
+		<div class = "col" id = "div4">
+						<center>	<div>
+				<span class="flex-top" id="top-left" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class="flex-element" id="Pressure" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">P</span>
+						<span class="flex-number" id="Pressure_Number">P</span></span>
+					<span class="flex-element" id="Volume" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">V</span>
+						<span class="flex-number" id="Volume_Number">V</span></span>
+					</span>
+				<span class= "flex-middle" >=</span>
+				<span class="flex-top" id="top-right" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class="flex-element" id="Mole" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">n</span>
+						<span class="flex-number" id="Mole_Number">n</span></span>
+					<span class="flex-element" id='R' draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">R</span>
+						<span class="flex-number" id="R_Number">R</span></span>
+					<span class="flex-element" id='Temperature' draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">T</span>
+						<span class="flex-number" id="Temperature_Number">T</span></span>
+				</span>
+			</div>
+							<br>
+					<span class="flex-bottom" id = "left" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span>
+				<span class = "flex-middle" id = "middle"> </span>
+				<span class="flex-bottom" id = "right" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span/>
+
+		</div></div>
+		</form>
+
+   </body>
+</html>
