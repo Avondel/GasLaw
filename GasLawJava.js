@@ -2,7 +2,8 @@
 	var Pressure, Temperature, Moles, Volume;
 
 	function myReset() { 
-		initiate();
+		body.reload();
+		//1initiate();
 	}
 	
 	function initiate() {
@@ -24,6 +25,7 @@
 	}
 
 	function HelpSolve() {
+		var error;
 		Pressure = document.forms["myform"]["PressureForm"].value;
 		if (Pressure === "" || Pressure === '0')
 			Pressure = "P";
@@ -41,23 +43,41 @@
 			Mole = "n";
 		
 		R = 0.0821;
-		
+		error = checkValues();
+		if(error ===1){
+			if( document.forms["myform"]["nUnits"].value === "gram" ){
+				var msg = "You have to use moles. Sorry!\nConvert the grams to moles and try again.";
+				alert(msg);
+			}
+		}
+	}
+	
+	function checkValues(){
+		var error = 0;
 		document.getElementById('Pressure_Number').innerHTML = Pressure;
 		document.getElementById('Volume_Number').innerHTML = Volume;
 		document.getElementById('Mole_Number').innerHTML = Mole;
 		document.getElementById('R_Number').innerHTML = R;
 		document.getElementById('Temperature_Number').innerHTML = Temperature;
-
-		if (error === 1) {
+		if(isNaN(Pressure))
+			error+=1;
+		if(isNaN(Volume))
+			error+=1;
+		if(isNaN(Mole))
+			error+=1;
+		if(isNaN(Temperature))
+			error+=1;
+		if (error > 1) {
+			var msg;
 			msg = "You have more than one unknown value.\n";
-			msg += "Try again using the Change of State assistant.";
+			msg += "Either use the Change of State assistant\n";
+			msg += "or check your data entry.";
+			alert(msg);
+		} else if( error === 0){
+			var msg = "You have filled in all the spaces. Please check your data.";
 			alert(msg);
 		}
-	}
-	
-	function checkValues(){
-		msg = Pressure + " " + Volume + " " + Temperature + " " + Mole;
-		return 1;
+		return error;
 	}
 	
 	function Ex2() {

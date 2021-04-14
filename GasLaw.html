@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<html>	
+
 	<style>
 	
 	* {
@@ -145,6 +146,9 @@
 	
 	</style>
    <head>
+		<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
 		<script src = "GasLawJava.js"></script>
    </head>
    
@@ -162,7 +166,6 @@
 				<option value="Pascals">Pascals (Pa)</option>
 				<option value="atm">Atmospheres (atm)</option>
 				<option value="Torr">Torr</option>
-				<option value="pUnk">Pressure Unknown</option>
 				</select>
 			</p><p>
 			<input type="text" id = "VolumeForm" maxlength = "10"/> &nbsp <select name = "VUnits">
@@ -170,23 +173,21 @@
 				<option value="cc">Cubic Centimeters (cc)</option>
 				<option value="mL">Milliliters (mL)</option>
 				<option value="cubicmeters">Cubic meters</option>
-				<option value="vUnk">Volume Unknown</option>
 				</select>
 			</p><p>
 			<input type="text" id = "MoleForm" maxlength = "10"/> &nbsp <select name = "nUnits">
 				<option value="mol">moles</option>
 				<option value="gram">grams</option>
-				<option value="nUnk">Number of moles Unknown</option>
 				</select>
 			</p><p>
 			<input type="text" id = "TemperatureForm" maxlength = "10"/> &nbsp <select name = "TUnits">
 				<option value="kelvin">Kelvin (K)</option>
 				<option value="kelvin1">You need Kelvin.</option>
 				<option value="kelvin2">Still Kelvin. Sorry</option>
-				<option value="tUnk">Temperature Unknown</option>
 				</select>
 			</p><p>
 			<input type = "button" onclick = "HelpSolve()"; value = "Begin Solving"/>
+			<input TYPE="reset" onClick="history.go(0)" VALUE="Refresh">
 				
 		</div><div class = "col" id = "div2"><center>
 			<h3 style="font-size: 1.5em"><pre>P    V    =    n    R    T</pre></h3>
