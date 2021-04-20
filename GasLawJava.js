@@ -1,9 +1,9 @@
    		
-	var Pressure, Temperature, Moles, Volume;
+	var Pressure, Temperature, Moles, Volume, RGas;
 
 	function myReset() { 
-		body.reload();
-		//1initiate();
+		var but = document.getElementById("btnSolve");
+		but.disabled = true;
 	}
 	
 	function initiate() {
@@ -25,7 +25,7 @@
 	}
 
 	function HelpSolve() {
-		var error;
+		var error;	
 		Pressure = document.forms["myform"]["PressureForm"].value;
 		if (Pressure === "" || Pressure === '0')
 			Pressure = "P";
@@ -38,32 +38,32 @@
 		if (Temperature === "" || Temperature === '0')
 			Temperature = "T";
 		
-		Mole = document.forms["myform"]["MoleForm"].value;
-		if (Mole === "" || Mole === '0')
-			Mole = "n";
+		Moles = document.forms["myform"]["MoleForm"].value;
+		if (Moles === "" || Moles === '0')
+			Moles = "n";
 		
-		R = 0.0821;
 		error = checkValues();
+		error = 1;
 		if(error ===1){
-			if( document.forms["myform"]["nUnits"].value === "gram" ){
-				var msg = "You have to use moles. Sorry!\nConvert the grams to moles and try again.";
-				alert(msg);
+			document.getElementById('Pressure_Number').innerHTML = Pressure;
+			document.getElementById('Volume_Number').innerHTML = Volume;
+			document.getElementById('Mole_Number').innerHTML = Moles;
+			document.getElementById('R_Number').innerHTML = RGas;
+			document.getElementById('Temperature_Number').innerHTML = Temperature;
+			var but = document.getElementById("btnSolve");
+			but.disabled = false;
 			}
-		}
 	}
 	
 	function checkValues(){
 		var error = 0;
-		document.getElementById('Pressure_Number').innerHTML = Pressure;
-		document.getElementById('Volume_Number').innerHTML = Volume;
-		document.getElementById('Mole_Number').innerHTML = Mole;
-		document.getElementById('R_Number').innerHTML = R;
-		document.getElementById('Temperature_Number').innerHTML = Temperature;
+		var gasSelect, gasCustomize;
+
 		if(isNaN(Pressure))
 			error+=1;
 		if(isNaN(Volume))
 			error+=1;
-		if(isNaN(Mole))
+		if(isNaN(Moles))
 			error+=1;
 		if(isNaN(Temperature))
 			error+=1;
@@ -77,7 +77,42 @@
 			var msg = "You have filled in all the spaces. Please check your data.";
 			alert(msg);
 		}
+		else if( document.forms["myform"]["nUnits"].value === "gram" ){
+			var msg = "You have to use moles. Sorry!\nConvert the grams to moles and try again.";
+			alert(msg);
+			error = 2;
+		}
+		else {
+			gasSelect = document.forms["myform"]["RUnits"].value;
+			gasCustomize = document.forms["myform"]["RInput"].value;
+			if(gasSelect === "SelectR" && gasCustomize === ""){
+				error = 2;
+				alert("Please select or input a value for R.");
+			}
+			else if(gasSelect !== "SelectR" && gasCustomize !== ""){
+				error = 2;
+				alert("Please select one or the other.");
+			}
+			else if(gasSelect !== "SelectR")
+				RGas = gasSelect;
+			else
+				RGas = gasCustomize;
+		}
 		return error;
+	}
+	
+	function GetAnswer(){
+		var answer, msg;
+		if(isNaN(Pressure))
+			answer = Temperature * Moles * RGas / Volume;
+		else if (isNaN(Volume))
+			answer = Temperature * Moles * RGas / Pressure;
+		else if (isNaN(Temperature))
+			answer = Pressure * Volume / (Moles * RGas);
+		else 
+			answer = Pressure * Volume / (RGas * Temperature);
+		msg = "My answer is: " + Math.round(answer*1000)/1000 + "\n" + "If you got something else, try solving the gas equation first.";
+		alert (msg);
 	}
 	
 	function Ex2() {

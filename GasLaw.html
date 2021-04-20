@@ -112,7 +112,7 @@
 			
 	.flex-label{
 		float: left;
-		margin-top: -2em;
+		margin-top: -1.75em;
 		background-color: lightgreen;
 		padding: .25em;
 		display: inline;
@@ -152,26 +152,22 @@
 		<script src = "GasLawJava.js"></script>
    </head>
    
-   <body onload = "initiate()">
+   <body onload = "myReset()">
 	
 		<center><h1>GAS LAW</h1></center>
 
 		<form action = "/cgi-bin/html5.cgi" method = "get" name = "myform" >		
 		<div class = "row">
 			<div class = "col" id = "div1">
-			<h3>Enter Values</h3>
+			<center><h3>Enter Values</h3></center>
 			<p>For the unknown value, enter a zero or leave blank. You can only have one unknown for these problems. Maximum length for input is 10 characters.</p>
 			<p><input type="text" id = "PressureForm" maxlength = "10"/> &nbsp <select name = "PUnits">
-				<option value="kPascals">Kilo Pascals (kPa)</option>
+				<option value="atm">Atmospheres</option>
 				<option value="Pascals">Pascals (Pa)</option>
-				<option value="atm">Atmospheres (atm)</option>
-				<option value="Torr">Torr</option>
 				</select>
 			</p><p>
 			<input type="text" id = "VolumeForm" maxlength = "10"/> &nbsp <select name = "VUnits">
 				<option value="Liters">Liters (L)</option>
-				<option value="cc">Cubic Centimeters (cc)</option>
-				<option value="mL">Milliliters (mL)</option>
 				<option value="cubicmeters">Cubic meters</option>
 				</select>
 			</p><p>
@@ -185,30 +181,39 @@
 				<option value="kelvin1">You need Kelvin.</option>
 				<option value="kelvin2">Still Kelvin. Sorry</option>
 				</select>
+				Kelvin = Celsius - 273
 			</p><p>
-			<input type = "button" onclick = "HelpSolve()"; value = "Begin Solving"/>
-			<input TYPE="reset" onClick="history.go(0)" VALUE="Refresh">
+
 				
 		</div><div class = "col" id = "div2"><center>
 			<h3 style="font-size: 1.5em"><pre>P    V    =    n    R    T</pre></h3>
 			<p>You should have one variable remaining.</p>
-			<p>Start by dragging the numbers with the variable to the denominator on the opposite side.</p>
-			<p>When you have isolated the variable, multiply the numbers on top and divide by the numbers on the bottom.
+			<p>Isolate the variable by dragging the numbers to the denominator on the opposite side of the equals sign.
+			<p>Finaly, multiply the numbers on top and divide by the numbers on the bottom.
 			<p>If you make a mistake, drag the numbers back.</p>
 		</center></div></div>	
 		<div class = "row">
 		<div class = "col" id = "div3">
-		<h3>Reference</h3>
-			<p><b>Convert from Celsius to Kelvin</b><br>
-				Subtract 273<p>
-			<p><b>Values for R</b><br>
-				8.314 J / mol * K<br>
-				8.314 m<sup>3</sup> Pa / mol * K <br>
-				0.0821 atm * L / mol * K</p>
-		
+			<center><h3>Select R</h3></center><br>
+			<p>Select from list:
+				<select name = "RUnits">
+					<option value="SelectR">Select Value for R</option>
+					<option value="0.0821">0.0821 atm * L / (mol * K)</option>
+					<option value="8.2057">8.2057 m<sup>3</sup> * atm / ( mol * K )</option>
+					<option value="8.3145">8.3145 m<sup>3</sup> * Pa / ( mol * K )</option>
+				</select></p>
+			<center><b><p>OR</p></b></center>
+			<p>Enter your own value: 
+			<input type="text" id = "RInput" maxlength = "10" placeholder = "Enter your own value."/></p>
+			<p>NOTE: YOU are responsible for checking your units.</p><br>
+			<center>
+			<input type = "button" onclick = "HelpSolve()"; value = "Begin Solving"/>
+			<input TYPE="reset" onClick="history.go(0)" VALUE="Refresh">
+			<input type = "button" id = "btnSolve" onclick = "GetAnswer()" value = "Get Answer" disabled/>
+			</center>
 		</div>
 		<div class = "col" id = "div4">
-						<center>	<div>
+						<center>	<div><br>
 				<span class="flex-top" id="top-left" ondragover="allowDrop(event)" ondrop="drop(event)">
 					<span class="flex-element" id="Pressure" draggable = "true" ondragstart = "drag(event)">
 						<span class="flex-label">P</span>
