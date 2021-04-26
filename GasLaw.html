@@ -60,6 +60,31 @@
 	.flex-container1 {
 		display: flex;
 	}
+	
+	.boxNum {
+		display: inline;
+		font-size: 20pt;
+		padding: .25em .5em;
+		font-weight: bold;
+		height: 1em;
+		width: 1em;
+		border-radius: 50%;
+		border-style: solid;
+		border-color: DimGrey;
+		//background-color: LightBlue;
+	}
+	
+	.PV {
+		padding-left: 2em;
+		letter-spacing: .25em;
+	}
+	
+	.boxHeader{
+		font-size: 16pt;
+		font-weight: bold;
+		padding-left: 5em;
+	}
+	
 .first{
     width: 300px;
     height: 100px;
@@ -101,7 +126,7 @@
 	}	
 	
 	.flex-element{
-		background-color: lightgreen;
+		background-color: lightPink;
 		border-style: solid;
 		padding: .25em;
 	}
@@ -113,7 +138,7 @@
 	.flex-label{
 		float: left;
 		margin-top: -1.75em;
-		background-color: lightgreen;
+		background-color: lightPink;
 		padding: .25em;
 		display: inline;
 	}
@@ -160,7 +185,8 @@
 		<form action = "/cgi-bin/html5.cgi" method = "get" name = "myform" >		
 		<div class = "row">
 			<div class = "col" id = "div1">
-			<center><h3>Enter Values</h3></center>
+			<span class = "boxNum">1</span>
+			<span class = "boxHeader">Enter Values</span><br><br>
 			<p>For the unknown value, enter a zero or leave blank. You can only have one unknown for these problems. Maximum length for input is 10 characters.</p>
 			<p><input type="text" id = "PressureForm" maxlength = "10"/> &nbsp <select name = "PUnits">
 				<option value="atm">Atmospheres</option>
@@ -183,19 +209,12 @@
 				<option value="kelvin2">Still Kelvin. Sorry</option>
 				</select>
 				Kelvin = Celsius - 273
-			</p><p>
+			</p>
 
 				
-		</div><div class = "col" id = "div2"><center>
-			<h3 style="font-size: 1.5em"><pre>P    V    =    n    R    T</pre></h3>
-			<p>You should have one variable remaining.</p>
-			<p>Isolate the variable by dragging the numbers to the denominator on the opposite side of the equals sign.
-			<p>Finaly, multiply the numbers on top and divide by the numbers on the bottom.
-			<p>If you make a mistake, drag the numbers back.</p>
-		</center></div></div>	
-		<div class = "row">
-		<div class = "col" id = "div3">
-			<center><h3>Select R</h3></center><br>
+		</div><div class = "col" id = "div2">
+						<span class = "boxNum">2</span>
+			<span class = "boxHeader">Select R</span><br><br>		
 			<p>Select from list:
 				<select name = "RUnits">
 					<option value="SelectR">Select Value for R</option>
@@ -209,12 +228,15 @@
 			<p>NOTE: YOU are responsible for checking your units.</p><br>
 			<center>
 			<input type = "button" onclick = "HelpSolve()"; value = "Begin Solving"/>
-			<input TYPE="reset" onClick="history.go(0)" VALUE="Refresh">
-			<input type = "button" id = "btnSolve" onclick = "GetAnswer()" value = "Get Answer" disabled/>
-			</center>
-		</div>
-		<div class = "col" id = "div4">
-						<center>	<div><br>
+			<input TYPE="reset" onClick="history.go(0)" VALUE="Reset">
+		</div></div>	
+		<div class = "row">
+		<div class = "col" id = "div3">
+
+			<span class = "boxNum">3</span>
+			<span class = "boxHeader">Solve Equation: <span class = "PV">P V = n R T</span></span><br><br>
+			<p>Isolate the variable by dragging the numbers to the denominator on the opposite side of the equals sign.</p>
+			</center><br><center>
 				<span class="flex-top" id="top-left" ondragover="allowDrop(event)" ondrop="drop(event)">
 					<span class="flex-element" id="Pressure" draggable = "true" ondragstart = "drag(event)">
 						<span class="flex-label">P</span>
@@ -235,11 +257,19 @@
 						<span class="flex-label">T</span>
 						<span class="flex-number" id="Temperature_Number">T</span></span>
 				</span>
-			</div>
-							<br>
-					<span class="flex-bottom" id = "left" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span>
+			<br>
+				<span class="flex-bottom" id = "left" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span>
 				<span class = "flex-middle" id = "middle"> </span>
-				<span class="flex-bottom" id = "right" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span/>
+				<span class="flex-bottom" id = "right" ondragover="allowDrop(event)" ondrop="drop(event)">Drop Here</span/>		
+				</center>
+		</div>
+		<div class = "col" id = "div4">
+			<span class = "boxNum">4</span>
+			<span class = "boxHeader">Check Work</span>
+						<center>	<div><br>
+						<p>Solve the problem by multiplying the numbers on top and dividing the number(s) on the bottom.</p></br>
+			<input type = "button" id = "btnSolve" onclick = "GetAnswer()" value = "Check Answer" disabled></input>
+	
 
 		</div></div>
 		</form>
