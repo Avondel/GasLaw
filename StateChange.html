@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html>	
+
+	<style>
+	
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+		background-color: white;
+		color: black;
+		padding: 1%;
+		font-family: Times, Verdana, sans-serif;
+		font-size: 16px;
+		margin: auto;
+	}
+	
+	h1 {
+		background-color: hsla(0,100%,100%,0.5);
+		color: #64645A;
+		padding: inherit;
+	}
+		
+	p {
+		padding: 5px;
+		margin: 0px;}
+
+	h3 {
+		margin: 0px;
+	}	 
+
+	.row {
+	  display: flex; /* equal height of the children */
+	  width: 80%;
+	  margin: auto;
+	  position: relative;
+	}
+
+	.col {
+	  flex: 1; /* additionally, equal width */
+	  padding: 1em;
+	  border: solid;
+	  position: relative;
+	}
+
+	.boxNum {
+		display: inline;
+		font-size: 20pt;
+		padding: .25em .5em;
+		font-weight: bold;
+		height: 1em;
+		width: 1em;
+		border-radius: 50%;
+		border-style: solid;
+		border-color: DimGrey;
+		//background-color: LightBlue;
+	}
+	
+	.boxHeader{
+		font-size: 16pt;
+		font-weight: bold;
+		padding-left: 5em;
+	}
+	
+	.PV {
+		padding-left: 2em;
+		letter-spacing: .25em;
+	}
+		
+	.flex-top {
+		display: inline-flex;
+		padding: 1em;
+		min-height: 6em;
+		border: none;
+		border-bottom: solid;
+		min-width: 7em;
+		//border: solid;
+		vertical-align: middle;
+	}	
+	
+	.flex-bottom {
+		display: inline-flex;
+		padding: 1em;
+		min-height: 6em;
+		border: none;
+		min-width: 7em;
+		//border: solid;
+		vertical-align: middle;
+	}
+	
+	.flex-middle {
+		display: inline-flex;
+		padding: 1.5em;
+		border: none;
+
+	}	
+	
+	.flex-element{
+		background-color: lightPink;
+		border-style: solid;
+		padding: .25em;
+	}
+	
+	.flex-number {
+		text-align: center;
+	}
+			
+	.flex-label{
+		float: left;
+		margin-top: -1.75em;
+		background-color: lightPink;
+		padding: .25em;
+		display: inline;
+	}
+
+	.Empty {
+		border: solid 5pt red;
+	}
+
+	#div1 {
+		background-color: AliceBlue;
+	}
+
+	#div2 {
+		background-color: Cornsilk;
+	}
+
+	#div3 {
+		background-color: LavenderBlush;
+	}
+
+	#div4 {
+		background-color: HoneyDew;
+	}
+	
+	</style>
+   <head>
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta name = "description" content = "Solve Ideal Gas Law problems. PV = nRT Assistance. A \'hand holder\' to help students organize information and solve the Ideal Gas Equation">
+		<script src = "StateChangeJava.js"></script>
+   </head>
+   
+   <body onload = "myReset()">
+	
+		<center><h1>CHANGE OF STATE</h1></center>
+
+		<form action = "/cgi-bin/html5.cgi" method = "get" name = "myform" >		
+		<div class = "row">
+			<div class = "col" id = "div1">
+			<span class = "boxNum">1</span>
+			<span class = "boxHeader">Select Items</span><br><br>
+			<p>Check the items in your problem. You need at least two (2).</p>
+				<input type="checkbox" id="Pressure" name="Pressure" value="Pressure">
+				<label for="Pressure"> Pressure</label><br>
+				<input type="checkbox" id="Volume" name="Volume" value="Volume">
+				<label for="Volume"> Volume</label><br>
+				<input type="checkbox" id="Moles" name="Moles" value="Moles">
+				<label for="Moles"> Number of Moles</label><br>
+				<input type="checkbox" id="Temp" name="Temp" value="Temp">
+				<label for="Temp">Temperature</label><br><br>
+				<input type="button" onclick = "setUp()"; value = "Click to Begin Entering Data"/>
+
+				
+		</div><div class = "col" id = "div2">
+						<span class = "boxNum">2</span>
+			<span class = "boxHeader">Enter Data</span><br>
+			<span id = "EqDesc"><br></span>
+			<table><th><tr><td colspan = "2"><big>Start</big></td><td colspan = "2"><big>End</big></td></tr></th>
+	
+				<tr id="pressureRow" hidden>	<td><input type = "text" id = "pressureStart"></td>
+						<td><select name="pressureStartUnit" id="pressureStartUnit">
+							<option value="atm">atm</option>
+							<option value="mmHg">mmHg</option>
+							<option value="pascal">Pascal</option>
+							<option value="kilopascal">Kilopascal</option>
+							</select>
+						</td>
+					<td><input type = "text" id = "pressureEnd"></td>
+					<td> <select name="pressureEndUnit" id="pressureEndUnit">
+								<option value="atm">atm</option>
+								<option value="mmHg">mmHg</option>
+								<option value="pascal">Pascal</option>
+								<option value="kilopascal">Kilopascal</option>
+							</select>
+					</td>
+				</tr><tr id = "volumeRow" hidden>
+					<td><input type="text" id = "volumeStart"></td>
+					<td><select name="volumeStartUnit" id="volumeStartUnit">
+							<option value="liters">Liters</option>
+							<option value="milliliters">Milliliters</option>
+							<option value="m3">Cubic Meters</option>
+						</select>
+					</td>
+					<td><input type="text" id = "volumeEnd"></td>
+					<td><select name="volumeEndUnit" id="volumeEndUnit">
+							<option value="liters">Liters</option>
+							<option value="milliliters">Milliliters</option>
+							<option value="m3">Cubic Meters</option>
+						</select>
+					</td>
+				</tr><tr id="molesRow" hidden>
+					<td><input type="text" id = "molesStart"></td>
+					<td><select name="molesStartUnit" id="molesStartUnit">
+						<option value="moles">Moles</option>
+						<option value="grams">Grams</option>
+					</select>
+					</td>
+					<td><input type="text" id = "molesEnd"></td>
+					<td><select name="molesEndUnit" id="molesEndUnit">
+						<option value="moles">Moles</option>
+						<option value="grams">Grams</option>
+					</select>
+					</td>
+				</tr><tr id="tempRow" hidden>
+					<td><input type="text" id = "tempStart"></td>
+					<td><select name="tempStartUnit" id="tempStartUnit">
+						<option value="kelvin">Kelvin</option>
+					</select>
+					</td>
+					<td><input type="text" id = "tempEnd"></td>
+					<td><select name="tempEndUnit" id="tempEndUnit">
+						<option value="kelvin">Kelvin</option>
+					</select>
+					</td>
+				</tr>			
+			
+			</table></br>
+
+			<center>
+			<input type = "button" onclick = "BeginSolving()"; value = "Begin Solving"/>
+			<input TYPE="reset" onClick="history.go(0)" VALUE="Reset">
+		</div></div>	
+		<div class = "row">
+		<div class = "col" id = "div3">
+
+			<span class = "boxNum">3</span>
+			<span class = "boxHeader">Solve Equation: <span class = "PV"></span></span><br><br>
+			<p>Isolate the variable by dragging the numbers diagonally to the opposite side of the equals sign.</p>
+			</center><br><center>
+				<span class="flex-top" id="top-left" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class = "Empty" id="empty-element1" hidden>Drop Here</span>
+					<span class="flex-element" id="Pressure_Label1" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">P1</span>
+						<span class="flex-number" id="Pressure_Number1">P1</span></span>
+					<span class="flex-element" id="Volume_Label1" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">V1</span>
+						<span class="flex-number" id="Volume_Number1">V1</span></span>
+					</span>
+				<span class= "flex-middle" >=</span>
+				<span class="flex-top" id="top-right" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class = "Empty" id="empty-element2" hidden>Drop Here</span>
+					<span class="flex-element" id="Pressure_Label2" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">P2</span>
+						<span class="flex-number" id="Pressure_Number2">P2</span></span>
+					<span class="flex-element" id="Volume_Label2" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">V2</span>
+						<span class="flex-number" id="Volume_Number2">V2</span></span>
+					</span>
+
+			<br>
+				<span class="flex-bottom" id="bottom-left" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class = "Empty" id="empty-element3" hidden>Drop Here</span>
+					<span class="flex-element" id="Moles_Label1" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">n1</span>
+						<span class="flex-number" id="Moles_Number1">n1</span></span>
+					<span class="flex-element" id="Temperature_Label1" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">T1</span>
+						<span class="flex-number" id="Temperature_Number1">T1</span></span>
+					</span>
+				<span class= "flex-middle" ></span>
+				<span class="flex-bottom" id="bottom-right" ondragover="allowDrop(event)" ondrop="drop(event)">
+					<span class = "Empty" id="empty-element4" hidden>Drop Here</span>
+					<span class="flex-element" id="Moles_Label2" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">n2</span>
+						<span class="flex-number" id="Moles_Number2">n2</span></span>
+					<span class="flex-element" id="Temperature_Label2" draggable = "true" ondragstart = "drag(event)">
+						<span class="flex-label">T2</span>
+						<span class="flex-number" id="Temperature_Number2">T2</span></span>
+					</span>
+
+		</div>
+		<div class = "col" id = "div4">
+			<span class = "boxNum">4</span>
+			<span class = "boxHeader">Check Work</span>
+						<center>	<div><br>
+						<p>Solve the problem by multiplying the numbers on top and dividing the number(s) on the bottom.</p></br>
+			<input type = "button" id = "btnSolve" onclick = "GetAnswer()" value = "Check Answer" disabled></input>
+	
+
+		</div></div>
+		</form>
+
+   </body>
+</html>
